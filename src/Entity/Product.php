@@ -21,7 +21,7 @@ class Product
     #[ORM\Column(type: 'integer')]
     private $quantity;
 
-    #[ORM\Column(type: 'float')]
+    #[ORM\Column(type: 'integer')]
     private $price;
 
     #[ORM\ManyToMany(targetEntity: category::class, inversedBy: 'products')]
@@ -33,16 +33,17 @@ class Product
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\ManyToOne(targetEntity: manufacturer::class, inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Manufacturer::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private $manufacturer;
 
-    #[ORM\OneToOne(mappedBy: 'product', targetEntity: OrderDetail::class, cascade: ['persist', 'remove'])]
-    private $product;
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderDetail::class)]
+    private $orderDetails;
 
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->orderDetails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,12 +75,12 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?int
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(int $price): self
     {
         $this->price = $price;
 
@@ -134,31 +135,44 @@ class Product
         return $this;
     }
 
-    public function getManufacturer(): ?manufacturer
+    public function getManufacturer(): ?Manufacturer
     {
         return $this->manufacturer;
     }
 
-    public function setManufacturer(?manufacturer $manufacturer): self
+    public function setManufacturer(?Manufacturer $manufacturer): self
     {
         $this->manufacturer = $manufacturer;
 
         return $this;
     }
 
-    public function getProduct(): ?OrderDetail
+    /**
+     * @return Collection<int, OrderDetail>
+     */
+    public function getOrderDetails(): Collection
     {
-        return $this->product;
+        return $this->orderDetails;
     }
 
-    public function setProduct(OrderDetail $product): self
+    public function addOrderDetail(OrderDetail $orderDetail): self
     {
-        // set the owning side of the relation if necessary
-        if ($product->getProduct() !== $this) {
-            $product->setProduct($this);
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails[] = $orderDetail;
+            $orderDetail->setProduct($this);
         }
 
-        $this->product = $product;
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetail $orderDetail): self
+    {
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getProduct() === $this) {
+                $orderDetail->setProduct(null);
+            }
+        }
 
         return $this;
     }
