@@ -12,7 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/product')]
 class ProductController extends AbstractController
 {
-    #[IsGranted("ROLE_ADMIN")]
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
+    // #[IsGranted("ROLE_ADMIN")]
     #[Route('/admin', name: 'product_index')]
     public function adminProduct(ProductRepository $productRepository){
         $products = $productRepository;
@@ -31,8 +36,13 @@ class ProductController extends AbstractController
         ]);
     }
 
+    #[Route('/edit/{id}', name: 'product_edit')]
+    public function productEdit(){
+
+    }
+
     #[Route('/detail/{id}', name: 'product_detail')]
-    public function bookDetail ($id, ProductRepository $productRepository) {
+    public function productDetail ($id, ProductRepository $productRepository) {
       $products = $productRepository->find($id);
       if ($products == null) {
           $this->addFlash('Warning', 'Invalid product id !');
@@ -47,7 +57,7 @@ class ProductController extends AbstractController
 
 
     // ----------------------------------------------------------------------
-    #[IsGranted("ROLE_CUSTOMER")]
+    // #[IsGranted("ROLE_CUSTOMER")]
     #[Route('/search', name:'search_product')]
     public function searchBook(ProductRepository $productRepository, Request $request){
       $products = $productRepository->searchBook($request->get('keyword'));
