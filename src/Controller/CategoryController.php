@@ -17,7 +17,7 @@ class CategoryController extends AbstractController
     }
 
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/admin', name: 'admin_category')]
+    #[Route('/admin', name: 'category_index')]
     public function index()
     {
         $categories = $this->categoryRepository->findAll();
