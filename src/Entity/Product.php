@@ -24,7 +24,7 @@ class Product
     #[ORM\Column(type: 'integer')]
     private $price;
 
-    #[ORM\ManyToMany(targetEntity: category::class, inversedBy: 'products')]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
     private $category;
 
     #[ORM\Column(type: 'object')]
@@ -95,7 +95,7 @@ class Product
         return $this->category;
     }
 
-    public function addCategory(category $category): self
+    public function addCategory(Category $category): self
     {
         if (!$this->category->contains($category)) {
             $this->category[] = $category;
@@ -104,7 +104,7 @@ class Product
         return $this;
     }
 
-    public function removeCategory(category $category): self
+    public function removeCategory(Category $category): self
     {
         $this->category->removeElement($category);
 
