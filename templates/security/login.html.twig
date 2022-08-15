@@ -3,25 +3,36 @@
 {% block title %}Log in!
 {% endblock %}
 
+
+
 {% block body %}
-	<section class="Form">
+	<section class="Form my-4 mx-5">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-5">
-					<img src="" class="img-fluid" alt="">
+			<div class="row g-0">
+				<div class="col-lg-6">
+					<img src="{{asset('images/laptop1.png')}}" class="img-fluid" alt="" >
 				</div>
-				<div class="col-lg-7">
+				<div class="col-lg-6 px-5 pt-5">
+                <h1 class="font-weight-bold py-3">Logo</h1>
+                <h4>Please sign into your account</h4>
 					<form action="">
-						<div class="form-row">
-							<div class="col-lg-7">
-								<input type="text" placeholder="Username" class="form-control">
+						<div class="form-row ">
+							<div class="col-lg-8">
+								<input type="text" placeholder="Username" class="form-control mb-3 mt-3">
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="col-lg-7">
-								<input type="password" placeholder="********" class="form-control">
+							<div class="col-lg-8">
+								<input type="password" placeholder="********" class="form-control mb-3">
 							</div>
 						</div>
+                        <div class="form-row">
+							<div class="col-lg-8">
+                            <button type="button" class="btn1 mb-3">Login</button>
+							</div>
+						</div>
+                        <a href="">Forgot password</a>
+                        <p>Don't have an account?<a href="">Register</a></p>
 					</form>
 				</div>
 			</div>
