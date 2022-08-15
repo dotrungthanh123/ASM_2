@@ -17,7 +17,7 @@ class OrderDetail
     #[ORM\JoinColumn(nullable: false)]
     private $product;
 
-    #[ORM\ManyToOne(targetEntity: order::class, inversedBy: 'orderDetails')]
+    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderDetails')]
     #[ORM\JoinColumn(nullable: false)]
     private $orderId;
 
@@ -41,12 +41,12 @@ class OrderDetail
         return $this;
     }
 
-    public function getOrderId(): ?order
+    public function getOrderId(): ?Order
     {
         return $this->orderId;
     }
 
-    public function setOrderId(?order $orderId): self
+    public function setOrderId(?Order $orderId): self
     {
         $this->orderId = $orderId;
 

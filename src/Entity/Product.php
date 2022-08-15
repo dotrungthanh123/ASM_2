@@ -33,7 +33,7 @@ class Product
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\ManyToOne(targetEntity: manufacturer::class, inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Manufacturer::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private $manufacturer;
 
@@ -135,12 +135,12 @@ class Product
         return $this;
     }
 
-    public function getManufacturer(): ?manufacturer
+    public function getManufacturer(): ?Manufacturer
     {
         return $this->manufacturer;
     }
 
-    public function setManufacturer(?manufacturer $manufacturer): self
+    public function setManufacturer(?Manufacturer $manufacturer): self
     {
         $this->manufacturer = $manufacturer;
 
