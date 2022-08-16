@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {{ form_start(productForm) }}
+
+    {{ form_widget(productForm) }}
+    <input type="submit" value="Add" class="btn btn-outline-danger">
+
+    {{ form_end(productForm) }}
+{% endblock %}

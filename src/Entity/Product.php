@@ -27,7 +27,7 @@ class Product
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
     private $category;
 
-    #[ORM\Column(type: 'object')]
+    #[ORM\Column(type: 'string', length: 255)]
     private $image;
 
     #[ORM\Column(type: 'text')]
@@ -111,7 +111,7 @@ class Product
         return $this;
     }
 
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }

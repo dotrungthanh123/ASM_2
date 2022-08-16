@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +20,9 @@ class ProductController extends AbstractController
     }
 
     // #[IsGranted("ROLE_ADMIN")]
-    #[Route('/admin', name: 'product_index')]
-    public function adminProduct(ProductRepository $productRepository){
-        $products = $productRepository;
+    #[Route('/index', name: 'product_index')]
+    public function adminProduct(){
+        $products = $this->productRepository->findAll();
         return $this->render('product/index.html.twig',
         [
             'products' => $products
@@ -37,20 +39,57 @@ class ProductController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'product_edit')]
-    public function productEdit(){
-
+    public function productEdit($id, Request $request) {
+        $product = $this->productRepository->find($id);
+        if ($product == null) {
+            $this->addFlash('Warning', 'Product not exist !');
+            return $this->redirectToRoute('product_index');
+        } else {
+            $form = $this->createForm(ProductType::class, $product);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($product);
+                $manager->flush();
+                $this->addFlash('Info', 'Edit product successfully !');
+            }
+            return $this->renderForm('product/edit.html.twig',
+            [
+                'productForm' => $form,
+            ]);
+        }
     }
 
+    #[Route('/add', name: 'product_add')]
+    public function productAdd(Request $request) {
+        $product = new Product;
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($product);
+            $manager->flush();
+            $this->addFlash('Info', 'Add product successfully !');
+            return $this->redirectToRoute('product_index');
+        }
+        
+        return $this->renderForm('product/add.html.twig',
+        [
+            'productForm' => $form,
+        ]);
+    }
+    
     #[Route('/detail/{id}', name: 'product_detail')]
-    public function productDetail ($id, ProductRepository $productRepository) {
-      $products = $productRepository->find($id);
-      if ($products == null) {
+    public function productDetail ($id) {
+      $product = $this->productRepository->find($id);
+      if ($product == null) {
           $this->addFlash('Warning', 'Invalid product id !');
-          return $this->redirectToRoute('admin_product');
+          return $this->redirectToRoute('product_index');
       }
+
       return $this->render('product/detail.html.twig',
           [
-              'products' => $products
+              'product' => $product
           ]);
     }
 
@@ -58,7 +97,7 @@ class ProductController extends AbstractController
 
     // ----------------------------------------------------------------------
     // #[IsGranted("ROLE_CUSTOMER")]
-    #[Route('/search', name:'search_product')]
+    #[Route('/search', name: 'product_search')]
     public function searchBook(ProductRepository $productRepository, Request $request){
       $products = $productRepository->searchBook($request->get('keyword'));
       if ($products == null){
