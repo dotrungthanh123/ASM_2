@@ -41,8 +41,18 @@ class ProductController extends AbstractController
     #[Route('/delete/{id}', name: 'product_delete')]
     public function deleteProduct($id) {
         $product = $this->productRepository->find($id);
+        if ($product == null) {
+            $this->addFlash('Warning', 'Product not existed !');
+        } else {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($product);
+            $manager->flush();
+            $this->addFlash('Info', 'Delete product successfully !');
+        }
+        return $this->redirectToRoute('product_index');
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/edit/{id}', name: 'product_edit')]
     public function productEdit($id, Request $request) {
         $product = $this->productRepository->find($id);
@@ -51,13 +61,13 @@ class ProductController extends AbstractController
             $this->addFlash('Warning', 'Product not exist !');
             return $this->redirectToRoute('product_index');
         } else {
-            $form = $this->createForm(ProductType::class, $product);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($product);
                 $manager->flush();
                 $this->addFlash('Info', 'Edit product successfully !');
+                $this->redirectToRoute('product_index');
             }
             return $this->renderForm('product/edit.html.twig',
             [
@@ -66,6 +76,7 @@ class ProductController extends AbstractController
         }
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/add', name: 'product_add')]
     public function productAdd(Request $request) {
         $product = new Product;
@@ -98,6 +109,7 @@ class ProductController extends AbstractController
           ]);
       }
     }
+
     #[Route('/cart', name: 'product_cart')]
     public function testCart () {
         return $this->render('cart/cart.html.twig');
