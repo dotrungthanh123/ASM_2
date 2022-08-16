@@ -98,7 +98,10 @@ class ProductController extends AbstractController
           ]);
       }
     }
-    
+    #[Route('/cart', name: 'product_cart')]
+    public function testCart () {
+        return $this->render('cart/cart.html.twig');
+    }
 
 
 
