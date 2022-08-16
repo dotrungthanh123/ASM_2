@@ -5,15 +5,15 @@
   <thead class="bg-light">
     <tr>
       <th>Name</th>
-      <th>Manufacturer</th>
+      <th>Category</th>
       <th>Quantity</th>
       <th>Price</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
+    {% for product in products %}
     <tr>
-        {% for product in products %}
           <td>
             <div class="d-flex align-items-center">
               <a href="{{ path('product_detail', {'id' : product.id}) }}">
@@ -25,7 +25,7 @@
               </a>
               <div class="ms-3">
                 <a href="{{ path('product_detail', {'id' : product.id}) }}"><p class="fw-bold mb-1">{{ product.name }}</p></a>
-                <a href="{{ path('manufacturer_index', {'id' : product.manufacturer.id}) }}"><p class="text-muted mb-0">{{ product.manufacturer.name }}</p></a>
+                <a href="{{ path('manufacturer_detail', {'id' : product.manufacturer.id}) }}"><p class="text-muted mb-0">{{ product.manufacturer.name }}</p></a>
               </div>
             </div>
           </td>
@@ -50,8 +50,8 @@
               <a href="{{ path('product_delete', {'id' : product.id}) }}">Delete</a>
             </button>
           </td>
-        {% endfor %}
     </tr>
+        {% endfor %}
   </tbody>
 </table>
 {% endblock %}

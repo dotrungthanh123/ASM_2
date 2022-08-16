@@ -40,10 +40,15 @@ class ManufacturerController extends AbstractController
     public function deleteManufacturer($id) {
         $manufacturer = $this->manufacturerRepository->find($id);
         if($manufacturer == null){
-            $this->addFlash('Warning','Dont have manufacturer id !');
-            return $this->redirectToRoute('manufacturer_index');
+            $this->addFlash('Warning','Cannot find manufacturer !');
         }
-        else{}
+        else{
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($manufacturer);
+            $manager->flush();
+            $this->addFlash('Info','Delete manufacturer successfully !');
+        }
+        return $this->redirectToRoute('manufacturer_index');
     }
 
     #[Route('/edit/{id}', name: 'manufacturer_edit')]

@@ -52,6 +52,11 @@
 									<a class="nav-link" href="{{ path('manufacturer_add') }}"  aria-disabled="true">Add</a>
 								</li>
 							{% endif %}
+							{% if app.request.pathinfo == path('home') %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('order_index') }}" aria-disabled="true">Cart</a>
+								</li>
+							{% endif %}
 							
 							
 						{% else %}
@@ -65,6 +70,10 @@
 
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('manufacturer_list') }}" aria-disabled="true">Manufactor</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('order_detail', {'id' : app.user.username}) }}" aria-disabled="true">Cart</a>
 							</li>
 						{% endif %}
 						
