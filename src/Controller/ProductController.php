@@ -92,6 +92,11 @@ class ProductController extends AbstractController
               'product' => $product
           ]);
     }
+    #[Route('/detail', name: 'product_detail')]
+    public function testproductDetail () {
+        return $this->render('product/detail.html.twig');
+    }
+    
 
 
 
