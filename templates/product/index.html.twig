@@ -37,7 +37,7 @@
           <td>Senior</td>
           <td>
             <button type="button" class="btn btn-link btn-sm btn-rounded">
-              Edit
+              <a href="{{ path('product_edit', {'id' : product.id}) }}">Edit</a>
             </button>
           </td>
         {% endfor %}

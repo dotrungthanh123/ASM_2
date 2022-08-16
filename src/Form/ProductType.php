@@ -2,16 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Author;
 use App\Entity\Category;
-use Doctrine\DBAL\Types\FloatType;
-use Doctrine\DBAL\Types\StringType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Manufacturer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ProductType extends AbstractType
 {
@@ -34,15 +33,16 @@ class ProductType extends AbstractType
                     'min' => 0,
                 ]
             ])
-            ->add('price', FloatType::class,
+            ->add('price', MoneyType::class,
             [
                 'label' => 'Price',
                 'required' => true,
                 'attr' => [
                     'min' => 0,
-                ]
+                ],
+                'currency' => 'USD',
             ])
-            ->add('image', StringType::class,
+            ->add('image', TextType::class,
             [
                 'label' => 'Product Image',
                 'required' => true,
@@ -50,24 +50,25 @@ class ProductType extends AbstractType
             ->add('category', EntityType::class,
             [
                 'label' => 'Category',
-                'requỉed' => true,
+                'required' => true,
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'mutiple' => 'true',
-                'expanded' => 'true,'
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('description', TextType::class,
             [
                 'label' => 'Description',
                 'required' => true,
             ])
-            ->add('manufacturer', EntityType::class,
+            ->add('manufacturer', EntityType::class, 
             [
+                'label' => 'Manufacturer',
                 'required' => true,
-                'class' => Author::class,
+                'class' => Manufacturer::class,
                 'choice_label' => 'name',
-                'multiple' => 'false',
-                'expanded' => 'false',
+                'multiple' => false,
+                'expanded' => false,
             ])
         ;
     }
@@ -75,7 +76,7 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+
         ]);
     }
 }
