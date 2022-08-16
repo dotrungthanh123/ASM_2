@@ -46,6 +46,7 @@ class ProductController extends AbstractController
     #[Route('/edit/{id}', name: 'product_edit')]
     public function productEdit($id, Request $request) {
         $product = $this->productRepository->find($id);
+        $form = $this->createForm(ProductType::class, $product);
         if ($product == null) {
             $this->addFlash('Warning', 'Product not exist !');
             return $this->redirectToRoute('product_index');
@@ -101,7 +102,10 @@ class ProductController extends AbstractController
     public function testproductDetail () {
         return $this->render('product/detail.html.twig');
     }
-    
+    #[Route('/cart', name: 'product_cart')]
+    public function testCart () {
+        return $this->render('cart/cart.html.twig');
+    }
 
 
 
