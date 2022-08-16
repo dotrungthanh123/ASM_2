@@ -38,7 +38,7 @@ class ProductController extends AbstractController
 
     #[Route('/edit/{id}', name: 'product_edit')]
     public function productEdit(){
-
+        
     }
 
     #[Route('/detail/{id}', name: 'product_detail')]
@@ -48,6 +48,7 @@ class ProductController extends AbstractController
           $this->addFlash('Warning', 'Invalid product id !');
           return $this->redirectToRoute('admin_product');
       }
+
       return $this->render('product/detail.html.twig',
           [
               'products' => $products

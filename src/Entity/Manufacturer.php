@@ -24,7 +24,7 @@ class Manufacturer
     #[ORM\Column(type: 'string', length: 255)]
     private $contact;
 
-    #[ORM\Column(type: 'object')]
+    #[ORM\Column(type: 'string', length: 255)]
     private $image;
 
     #[ORM\OneToMany(mappedBy: 'manufacturer', targetEntity: Product::class)]
@@ -76,7 +76,7 @@ class Manufacturer
         return $this;
     }
 
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
