@@ -46,6 +46,7 @@ class ProductController extends AbstractController
     #[Route('/edit/{id}', name: 'product_edit')]
     public function productEdit($id, Request $request) {
         $product = $this->productRepository->find($id);
+        $form = $this->createForm(ProductType::class, $product);
         if ($product == null) {
             $this->addFlash('Warning', 'Product not exist !');
             return $this->redirectToRoute('product_index');
