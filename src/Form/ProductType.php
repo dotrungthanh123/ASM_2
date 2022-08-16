@@ -23,6 +23,10 @@ class ProductType extends AbstractType
                 'label' => 'Name',
                 'attr' => [
                     'minlength' => 4,
+<<<<<<< HEAD
+                    'class' => 'dm'
+=======
+>>>>>>> 8bd791ac5ba8ae016b777697d1f652f124631301
                 ],
                 'required' => true,
             ])
