@@ -89,18 +89,14 @@ class ProductController extends AbstractController
     public function productDetail ($id) {
       $product = $this->productRepository->find($id);
       if ($product == null) {
-          $this->addFlash('Warning', 'Invalid product id !');
+          $this->addFlash('Warning', 'Cannot find product !');
           return $this->redirectToRoute('product_index');
-      }
-
-      return $this->render('product/detail.html.twig',
+      } else {
+        return $this->render('product/detail.html.twig',
           [
               'product' => $product
           ]);
-    }
-    #[Route('/detail', name: 'product_detail')]
-    public function testproductDetail () {
-        return $this->render('product/detail.html.twig');
+      }
     }
     
 
