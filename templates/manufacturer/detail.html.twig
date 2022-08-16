@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-8 text-center mt-3">
+   <div class="row">
+      <div class="col-4">
+         <div class="card">
+            <img src="{{ manufacturer.image }}" width="300" height="300">
+         </div>
+      </div>
+      <div class="col-6">
+         <table class="table table-bordered">
+            <tr>
+               <th colspan="2" class="bg-light">
+                  <h2 class="text-danger"> Manufacturer Information </h2>
+               </th>
+            </tr>
+            <tr class="h4">
+               <th>Name</th>
+               <td>{{ manufacturer.name }}</td>
+            </tr>
+            <tr class="h4">
+               <th>Address </th>
+               <td>{{ manufacturer.address }} </td>
+            </tr>
+            <tr class="h4">
+               <th>Contact</th>
+               <td>{{ manufacturer.contact }}</td>
+            </tr>
+            <tr class="h4">
+               <th class="col-md-4">Products</th>
+               <td class="col-md-8">
+               {% if manufacturer.products != null %}
+                  {% for product in manufacturer.products %}
+                     <a href="{{ path('product_detail', {'id' : product.id })}}">
+                        {{ product.name }} 
+                     </a>
+                     <br>
+                  {% endfor %}
+               {% endif %}
+               </td>
+            </tr>
+         </table>
+      </div>
+   </div>
+</div>
+{% endblock %}

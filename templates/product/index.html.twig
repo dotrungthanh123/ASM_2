@@ -2,6 +2,7 @@
 
 {% block body %}
 <table class="table align-middle mb-0 bg-white">
+<<<<<<< HEAD
 	<thead class="bg-light">
 		<tr>
 			<th>Name</th>
@@ -49,5 +50,58 @@
 		{% endfor %}
 </tr>
 	</tbody>
+=======
+  <thead class="bg-light">
+    <tr>
+      <th>Name</th>
+      <th>Manufacturer</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        {% for product in products %}
+          <td>
+            <div class="d-flex align-items-center">
+              <a href="{{ path('product_detail', {'id' : product.id}) }}">
+              <img
+                  src="{{ product.image }}"
+                  style="width: 45px; height: 45px"
+                  class="rounded-circle"
+                  />
+              </a>
+              <div class="ms-3">
+                <a href="{{ path('product_detail', {'id' : product.id}) }}"><p class="fw-bold mb-1">{{ product.name }}</p></a>
+                <a href="{{ path('manufacturer_index', {'id' : product.manufacturer.id}) }}"><p class="text-muted mb-0">{{ product.manufacturer.name }}</p></a>
+              </div>
+            </div>
+          </td>
+          <td>
+          <p class="fw-normal mb-1">{{ (product.category | first).name }}</p>
+          {% for category in product.category | slice(1) %}
+            <p class="text-muted mb-0">{{category.name}}</p>
+          {% endfor %}
+          </td>
+          <td>
+            <span class="badge badge-success rounded-pill d-inline">{{ product.quantity }}</span>
+          </td>
+          <td>$ {{ product.price }}</td>
+          <td>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <a href="{{ path('product_detail', {'id' : product.id}) }}">Detail</a>
+            </button>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <a href="{{ path('product_edit', {'id' : product.id}) }}">Edit</a>
+            </button>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <a href="{{ path('product_delete', {'id' : product.id}) }}">Delete</a>
+            </button>
+          </td>
+        {% endfor %}
+    </tr>
+  </tbody>
+>>>>>>> a25c73585c986e4e94d9614b35409dc55df41459
 </table>
 {% endblock %}

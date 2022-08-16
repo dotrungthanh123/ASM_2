@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<table class="table align-middle mb-0 bg-white">
+		<thead class="bg-light">
+			<tr>
+				<th colspan="3">
+					<h1 class="text text-primary">Manufacturer List</h1>
+				</th>
+			</tr>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Address</th>
+				<th>Contact</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				{% for manufacturer in manufacturers %}
+					<tr>
+						<td>{{manufacturer.id}}</td>
+						<td>{{manufacturer.name}}</td>
+						<td>{{manufacturer.address}}</td>
+						<td>{{manufacturer.contact}}</td>
+						<td>
+							<button type="button" class="btn btn-link btn-sm btn-rounded">
+								<a href="{{ path('manufacturer_detail', {'id' : manufacturer.id}) }}">Detail</a>
+							</button>
+							<button type="button" class="btn btn-link btn-sm btn-rounded">
+								<a href="{{ path('manufacturer_edit', {'id' : manufacturer.id}) }}">Edit</a>
+							</button>
+							<button type="button" class="btn btn-link btn-sm btn-rounded">
+								<a href="{{ path('manufacturer_delete', {'id' : manufacturer.id}) }}">Delete</a>
+							</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</tr>
+		</tbody>
+	</table>
+{% endblock %}
