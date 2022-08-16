@@ -114,6 +114,10 @@ class ProductController extends AbstractController
     public function testCart () {
         return $this->render('cart/cart.html.twig');
     }
+    #[Route('/home', name: 'home_test')]
+    public function testHome () {
+        return $this->render('home/index.html.twig');
+    }
 
 
 
