@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Manufacturer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ManufacturerType extends AbstractType
 {
@@ -14,34 +16,40 @@ class ManufacturerType extends AbstractType
         $builder
         ->add('name', TextType::class,
         [
-            'label' => 'Manufacturer name',
+            'label' => 'Name',
             'attr' => [
                 'minlength' => 4,
                 'maxlength' => 50
             ],
-            'required' => true
+            'required' => true,
+            // 'constraints' =>
+            // [
+            //     new NotBlank([
+            //         'message' => 'Enter Name Of Manufacturer',
+            //     ]),
+            // ],
         ])
-        ->add('address',TextType::class,
+        ->add('address', TextType::class,
         [
-            'label' => 'Manufacturer address',
+            'label' => 'Address',
             'required' => true,
             'attr' => [
                 'minlength' => 3,
                 'maxlength' => 50
             ]
         ])
-            ->add('contact',textType::class,
+            ->add('contact', TextType::class,
             [
-                'label' => 'Manufacturer contact',
+                'label' => 'Contact',
                 'required' => true,
                 'attr' => [
                     'min' => 15,
                     'max' => 80
                 ]
             ])
-            ->add('image' ,TextType::class,
+            ->add('image' , TextType::class,
             [
-                'label' => 'Manufacturer image',
+                'label' => 'Image',
                 'attr' => [
                     'maxlength' => 255
                 ],

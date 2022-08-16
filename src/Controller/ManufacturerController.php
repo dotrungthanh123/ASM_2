@@ -39,6 +39,11 @@ class ManufacturerController extends AbstractController
     #[Route('/delete/{id}', name: 'manufacturer_delete')]
     public function deleteManufacturer($id) {
         $manufacturer = $this->manufacturerRepository->find($id);
+        if($manufacturer == null){
+            $this->addFlash('Warning','Dont have manufacturer id !');
+            return $this->redirectToRoute('manufacturer_index');
+        }
+        else{}
     }
 
     #[Route('/edit/{id}', name: 'manufacturer_edit')]
@@ -56,6 +61,7 @@ class ManufacturerController extends AbstractController
                 $manager->persist($manufacturer);
                 $manager->flush();
                 $this->addFlash('Info', 'Edit manufacturer successfully !');
+                return $this->redirectToRoute('manufacturer_index');
             }
             return $this->renderForm('manufacturer/edit.html.twig',
             [
