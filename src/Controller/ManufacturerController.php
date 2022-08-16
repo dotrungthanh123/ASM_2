@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Manufacturer;
+use App\Form\ManufacturerType;
 use App\Repository\ManufacturerRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
