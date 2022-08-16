@@ -22,30 +22,53 @@
 		{% block header %}
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="#">MTM Shop</a>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
+					<a class="navbar-brand" href="{{ path('home') }}">MTM Shop</a>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						{% if is_granted('ROLE_ADMIN') %}
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{ path('home') }}">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">Product</a>
+								<a class="nav-link" href="{{ path('product_index') }}">Product</a>
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="#" aria-disabled="true">Category</a>
+								<a class="nav-link" href="{{ path('category_index') }}" aria-disabled="true">Category</a>
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="#" aria-disabled="true">Manufactor</a>
+								<a class="nav-link" href="{{ path('manufacturer_index') }}" aria-disabled="true">Manufactor</a>
+							</li>
+							{% if app.request.pathinfo == path('product_index') %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('product_add') }}"  aria-disabled="true">Add</a>
+								</li>
+							{% endif %}
+							{% if app.request.pathinfo == path('category_index') %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('category_add') }}"  aria-disabled="true">Add</a>
+								</li>
+							{% endif %}
+							{% if app.request.pathinfo == path('manufacturer_index') %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('manufacturer	_add') }}"  aria-disabled="true">Add</a>
+								</li>
+							{% endif %}
+							
+							
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('product_list') }}">Product</a>
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="{{ path('product_add') }}"  aria-disabled="true">Add</a>
+								<a class="nav-link" href="{{ path('category_list') }}" aria-disabled="true">Category</a>
 							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('manufacturer_list') }}" aria-disabled="true">Manufactor</a>
+							</li>
+						{% endif %}
+						
+							
 						</ul>
 						<form class="d-flex">
 							<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
