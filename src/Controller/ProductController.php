@@ -21,7 +21,7 @@ class ProductController extends AbstractController
 
     // #[IsGranted("ROLE_ADMIN")]
     #[Route('/index', name: 'product_index')]
-    public function adminProduct(){
+    public function productIndex(){
         $products = $this->productRepository->findAll();
         return $this->render('product/index.html.twig',
         [
@@ -30,12 +30,17 @@ class ProductController extends AbstractController
     }
 
     #[Route('/list', name: 'product_list')]
-    public function bookList(ProductRepository $productRepository){
+    public function productList(ProductRepository $productRepository){
         $products = $productRepository->findAll();
         return $this->render('product/list.html.twig', 
         [
             'products' => $products
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'product_delete')]
+    public function deleteProduct($id) {
+        $product = $this->productRepository->find($id);
     }
 
     #[Route('/edit/{id}', name: 'product_edit')]

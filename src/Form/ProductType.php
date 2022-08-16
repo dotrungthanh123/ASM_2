@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProductType extends AbstractType
 {
@@ -70,6 +71,10 @@ class ProductType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,
+            ])
+            ->add('description', TextareaType::class, 
+            [
+                'label' => 'Description',
             ])
         ;
     }
