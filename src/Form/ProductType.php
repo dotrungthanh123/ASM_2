@@ -17,7 +17,7 @@ class ProductType extends AbstractType
                 'label' => 'Product Name',
                 'attr' => [
                     'minlength' => 4,
-                    'class' = 'dm'
+                    'class' => 'dm'
                 ],
                 
             ])
