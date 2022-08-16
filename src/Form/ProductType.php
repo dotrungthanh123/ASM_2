@@ -25,7 +25,7 @@ class ProductType extends AbstractType
                     'minlength' => 4,
                     'class' => 'dm'
                 ],
-                'required' => true,
+                'required' => true
             ])
             ->add('quantity', IntegerType::class,
             [
