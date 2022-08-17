@@ -21,6 +21,11 @@ class OrderController extends AbstractController
         $this->$completedRepository = $completedRepository;
     }
 
+    #[Route('/list', name: 'order_list')]
+    public function customerOrder() {
+
+    }
+
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/index', name: 'order_index')]
     public function index(): Response
@@ -44,7 +49,11 @@ class OrderController extends AbstractController
             if ($this->completedRepository->find($this->orders[$i]->getId()) == null && $this->orders[$i]->getUser()->getUsername() == $this->getUser()->getUsername()) {
                 $con = true;
                 $orderDetail = new OrderDetail;
+<<<<<<< HEAD
                 $orderDetail->setProduct();
+=======
+                // $orderDetail->setProduct();
+>>>>>>> b6deac80d845187964fad5468d8e8e16077e04b9
             }
         }
         if (!$con) {
