@@ -5,7 +5,7 @@
 		<thead class="bg-light">
 			<tr>
 				<th colspan="3">
-					<h1 class="text text-primary">Manufacturer List</h1>
+					<h1 class="text text-primary"></h1>
 				</th>
 			</tr>
 			<tr>
@@ -26,13 +26,19 @@
 						<td>{{manufacturer.contact}}</td>
 						<td>
 							<button type="button" class="btn btn-link btn-sm btn-rounded">
-								<a href="{{ path('manufacturer_detail', {'id' : manufacturer.id}) }}">Detail</a>
+								<a href="{{ path('manufacturer_detail', {'id' : manufacturer.id}) }}">
+									<img src="{{ asset('images/detail.png') }}" width="40" height="40">
+								</a>
 							</button>
 							<button type="button" class="btn btn-link btn-sm btn-rounded">
-								<a href="{{ path('manufacturer_edit', {'id' : manufacturer.id}) }}">Edit</a>
+								<a href="{{ path('manufacturer_edit', {'id' : manufacturer.id}) }}">
+									<img src="{{ asset('images/edit.png') }}" width="40" height="40">
+								</a>
 							</button>
 							<button type="button" class="btn btn-link btn-sm btn-rounded">
-								<a href="{{ path('manufacturer_delete', {'id' : manufacturer.id}) }}">Delete</a>
+								<a href="{{ path('manufacturer_delete', {'id' : manufacturer.id}) }}">
+									<img src="{{ asset('images/delete.png') }}" width="40" height="40">
+								</a>
 							</button>
 						</td>
 					</tr>
