@@ -26,7 +26,7 @@
 											{% else %}
 												<p class="mb-0">You have
 													{{ order.orderDetails | length }}
-													items</p>
+													orders</p>
 											{% endif %}
 
 										</div>
@@ -39,7 +39,7 @@
 												<div class="d-flex justify-content-between">
 													<div class="d-flex flex-row align-items-center">
 														<div>
-															<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img4.webp" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+															<img src="{{order.product.image}}" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
 														</div>
 														<div class="ms-3">
 															<h5>{{ order.product.name }}</h5>
