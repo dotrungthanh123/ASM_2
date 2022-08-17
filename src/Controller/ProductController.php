@@ -67,7 +67,7 @@ class ProductController extends AbstractController
                 $manager->persist($product);
                 $manager->flush();
                 $this->addFlash('Info', 'Edit product successfully !');
-                $this->redirectToRoute('product_index');
+                return $this->redirectToRoute('product_index');
             }
             return $this->renderForm('product/edit.html.twig',
             [

@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use DateTimeInterface;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
-#[ORM\Table(name: 'order')]
+#[ORM\Table(name: '`order`')]
 class Order
 {
     #[ORM\Id]
@@ -17,15 +16,17 @@ class Order
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'datetime')]
-    private $datetime;
-
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'orders')]
-    #[ORM\JoinColumn(nullable: false)]
     private $user;
 
-    #[ORM\OneToMany(mappedBy: 'orderId', targetEntity: OrderDetail::class)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $datetime;
+
+    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: OrderDetail::class)]
     private $orderDetails;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $complete;
 
     public function __construct()
     {
@@ -37,18 +38,6 @@ class Order
         return $this->id;
     }
 
-    public function getDatetime(): ?\DateTimeInterface
-    {
-        return $this->datetime;
-    }
-
-    public function setDatetime(\DateTimeInterface $datetime): self
-    {
-        $this->datetime = $datetime;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -57,6 +46,18 @@ class Order
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDatetime(): ?\DateTimeInterface
+    {
+        return $this->datetime;
+    }
+
+    public function setDatetime(?\DateTimeInterface $datetime): self
+    {
+        $this->datetime = $datetime;
 
         return $this;
     }
@@ -73,7 +74,7 @@ class Order
     {
         if (!$this->orderDetails->contains($orderDetail)) {
             $this->orderDetails[] = $orderDetail;
-            $orderDetail->setOrderId($this);
+            $orderDetail->setOrders($this);
         }
 
         return $this;
@@ -83,18 +84,23 @@ class Order
     {
         if ($this->orderDetails->removeElement($orderDetail)) {
             // set the owning side to null (unless already changed)
-            if ($orderDetail->getOrderId() === $this) {
-                $orderDetail->setOrderId(null);
+            if ($orderDetail->getOrders() === $this) {
+                $orderDetail->setOrders(null);
             }
         }
 
         return $this;
     }
 
-    public function setCreatedTs(DateTimeInterface $created_ts): self
+    public function getComplete(): ?bool
     {
-        $this->datetime = $created_ts;
-    
+        return $this->complete;
+    }
+
+    public function setComplete(?bool $complete): self
+    {
+        $this->complete = $complete;
+
         return $this;
     }
 }

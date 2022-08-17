@@ -19,22 +19,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/order')]
 class OrderController extends AbstractController
 {
-    public function __construct(OrderRepository $orderRepository, CompletedRepository $completedRepository) {
+    public function __construct(OrderRepository $orderRepository) {
         $this->orderRepository = $orderRepository;
-        $this->completedRepository = $completedRepository;
+    }
+
+    #[Route('/complete/{id}', name: 'order_complete')]
+    public function completeOrder($id) {
+        $order = $this->orderRepository->find($id);
+        $order->setComplete(true);
+        $this->getDoctrine()->getManager()->persist($order);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->render('product/list.html.twig', 
+        [
+            'products' => $this->getDoctrine()->getRepository(Product::class)->findAll(),
+        ]);
     }
 
     #[Route('/list', name: 'order_list')]
     public function customerOrder() {
+        $order = null;
         $orders = $this->orderRepository->findAll();
-        for ($i = 0; $i < count($orders); $i++) {
-            if ($orders->getUser() != $this->getUser()) {
-                array_splice($orders, $i, 1);
+        for ($i = count($orders) - 1; $i >= 0; $i--) {
+            if ($orders[$i]->getUser() == $this->getUser() && $orders[$i]->getComplete() == false) {
+                $order = $orders[$i];
+                break;
             }
         }
         return $this->render('order/list.html.twig',
         [
-            'orders' => $orders,
+            'order' => $order,
         ]);
     }
 
@@ -43,7 +56,7 @@ class OrderController extends AbstractController
     public function index(): Response
     {
         return $this->render('order/index.html.twig', [
-            'orders' => $this->orders,
+            'orders' => $this->getDoctrine()->getRepository(Order::class)->findAll(),  
         ]);
     }
 
@@ -56,33 +69,40 @@ class OrderController extends AbstractController
 
     #[Route('/make/{id}', name: 'order_make')]
     public function makeOrder($id, Request $request) {
-        $orders = $this->orderRepository->findAll();
+        $orders = $this->getDoctrine()->getRepository(Order::class)->findAll();
         $con = false;
         $manager = $this->getDoctrine()->getManager();
-        for ($i = 0; $i < count($orders); $i++) {
-            if ($this->completedRepository->find($orders[$i]->getId()) == null && $orders[$i]->getUser() == $this->getUser()) {
-                $con = true;
-                $orderDetail = new OrderDetail;
-                $orderDetail->setProduct($this->getDoctrine()->getRepository(Product::class)->find($id));
-                $orderDetail->setOrderId($this->orderRepository->find($i));
-                $orderDetail->setQuantity($request->get('quantity'));
-                $orders[$i]->addOrderDetail($orderDetail);
-                break;
+        if ($orders != null) {
+            for ($i = count($orders) - 1; $i >= 0; $i--) {
+                if ($orders[$i]->getComplete() == false && $orders[$i]->getUser() == $this->getUser()) {
+                    $con = true;
+                    $orderDetail = new OrderDetail;
+                    $orderDetail->setProduct($this->getDoctrine()->getRepository(Product::class)->find($id));
+                    $orderDetail->setOrders($this->orderRepository->find($i));
+                    $orderDetail->setQuantity($request->get('quantity'));
+                    $orders[$i]->addOrderDetail($orderDetail);
+                    $manager->persist($orders[$i]);
+                    $manager->persist($orderDetail);
+                    $manager->flush();
+                    break;
+                }
             }
         }
+        
         if (!$con) {
             $order = new Order;
+            $order->setComplete(false);
             $order->setUser($this->getUser());
             $orderDetail = new OrderDetail;
             $orderDetail->setProduct($this->getDoctrine()->getRepository(Product::class)->find($id));
-            $orderDetail->setOrderId($order);
+            $orderDetail->setOrders($order);
             $orderDetail->setQuantity($request->get('quantity'));
             $order->addOrderDetail($orderDetail);
-            $order->setCreatedTs(new \DateTime());
+            $manager->persist($order);
+            $manager->persist($orderDetail);
+            $manager->flush();
         }
-        $manager->persist($order);
-        $manager->persist($orderDetail);
-        $manager->flush();
+        $this->getDoctrine()->getRepository(Product::class)->find($id)->setQuantity($this->getDoctrine()->getRepository(Product::class)->find($id)->getQuantity() - $request->get('quantity'));
         return $this->render('product/list.html.twig',
         [
             'products' => $this->getDoctrine()->getRepository(Product::class)->findAll(),

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,13 +16,22 @@ class CategoryType extends AbstractType
         $builder
             ->add('name', TextType::class,
                 [
-                    'label' => 'Author name',
+                    'label' => 'Category name',
                     'attr' => [
                         'minlength' => 3,
                         'maxlength' => 30
                     ]
                 ]
-            );
+                    )
+            ->add('image', TextType::class,
+            [
+                'label' => 'Category Image',
+                'required' => true,
+            ])
+            ->add('description', TextareaType::class,
+            [
+                'label' => "Description",
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

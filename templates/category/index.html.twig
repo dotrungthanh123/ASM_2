@@ -1,7 +1,31 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {% for category in categories %}
-        <h1>{{ category.name }}</h1>
-    {% endfor %}
+<div class="container col-md-8 text-center mt-3">
+   <div class="row">
+      <div class="col-6">
+         <table class="table table-bordered">
+            <tr>
+               <th colspan="2" class="bg-light">
+                  <h2 class="text-danger"> Category Information </h2>
+               </th>
+            </tr>
+            <tr class="h4">
+               <th>Category</th>     
+            </tr>
+            <tr class="h4">
+               <th class="col-md-4">Product</th>
+               <td class="col-md-8">
+                  {% for cat in category %}
+                     <a href="{{ path('category_detail', {'id' : cat.id })}}">
+                        {{ cat.name }} 
+                     </a>
+                     <br>
+                  {% endfor %}
+               </td>
+            </tr>
+         </table>
+      </div>
+   </div>
+</div>
 {% endblock %}

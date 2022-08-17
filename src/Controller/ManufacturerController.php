@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Manufacturer;
 use App\Form\ManufacturerType;
 use App\Repository\ManufacturerRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +19,7 @@ class ManufacturerController extends AbstractController
         $this->manufacturerRepository = $manufacturerRepository;
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/index', name: 'manufacturer_index')]
     public function manufacturerIndex(){
         $manufacturers = $this->manufacturerRepository->findAll();
@@ -36,6 +38,7 @@ class ManufacturerController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/delete/{id}', name: 'manufacturer_delete')]
     public function deleteManufacturer($id) {
         $manufacturer = $this->manufacturerRepository->find($id);
@@ -51,6 +54,7 @@ class ManufacturerController extends AbstractController
         return $this->redirectToRoute('manufacturer_index');
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/edit/{id}', name: 'manufacturer_edit')]
     public function manufacturerEdit($id, Request $request) {
         $manufacturer = $this->manufacturerRepository->find($id);
@@ -75,6 +79,7 @@ class ManufacturerController extends AbstractController
         }
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/add', name: 'manufacturer_add')]
     public function manufacturerAdd(Request $request) {
         $manufacturer = new Manufacturer;

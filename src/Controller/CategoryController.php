@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[IsGranted('ROLE_ADMIN')]
 #[Route('/category')]
 class CategoryController extends AbstractController
 {
@@ -20,16 +19,18 @@ class CategoryController extends AbstractController
         $this->categoryRepository = $categoryRepository;
     }
 
-    #[Route('/admin', name: 'category_index')]
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/index', name: 'category_index')]
     public function index()
     {
-        $categories = $this->categoryRepository->findAll();
+        $category = $this->categoryRepository->findAll();
         return $this->render('category/index.html.twig', [
-            'categories' => $categories,
+            'category' => $category,
         ]);
     }
 
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/delete/{id}', name: 'category_delete')]
     public function delete($id) 
     {
@@ -38,6 +39,8 @@ class CategoryController extends AbstractController
             'category' => $category,
         ]);
     }
+
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/add', name: 'category_add')]
     public function add(Request $request) 
     {
@@ -55,6 +58,8 @@ class CategoryController extends AbstractController
             'categoryForm' => $form,
         ]);
     }
+    
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/edit/{id}', name: 'category_edit')]
     public function edit(Request $request, $id) 
     {
