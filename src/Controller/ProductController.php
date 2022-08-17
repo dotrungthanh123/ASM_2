@@ -19,7 +19,7 @@ class ProductController extends AbstractController
         $this->productRepository = $productRepository;
     }
 
-    // #[IsGranted("ROLE_ADMIN")]
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/index', name: 'product_index')]
     public function productIndex(){
         $products = $this->productRepository->findAll();
@@ -37,7 +37,7 @@ class ProductController extends AbstractController
             'products' => $products
         ]);
     }
-
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/delete/{id}', name: 'product_delete')]
     public function deleteProduct($id) {
         $product = $this->productRepository->find($id);
@@ -109,17 +109,6 @@ class ProductController extends AbstractController
           ]);
       }
     }
-
-    #[Route('/cart', name: 'product_cart')]
-    public function testCart () {
-        return $this->render('cart/cart.html.twig');
-    }
-    #[Route('/home', name: 'home_test')]
-    public function testHome () {
-        return $this->render('home/index.html.twig');
-    }
-
-
 
     // ----------------------------------------------------------------------
     // #[IsGranted("ROLE_CUSTOMER")]

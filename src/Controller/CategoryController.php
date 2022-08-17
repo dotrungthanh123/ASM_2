@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/category')]
 class CategoryController extends AbstractController
 {
@@ -19,7 +20,6 @@ class CategoryController extends AbstractController
         $this->categoryRepository = $categoryRepository;
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin', name: 'category_index')]
     public function index()
     {
@@ -29,7 +29,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+
     #[Route('/delete/{id}', name: 'category_delete')]
     public function delete($id) 
     {
@@ -38,11 +38,27 @@ class CategoryController extends AbstractController
             'category' => $category,
         ]);
     }
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/add', name: 'category_add')]
     public function add(Request $request) 
     {
         $categories = new Category;
+        $form = $this->createForm(CategoryType::class, $categories);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($categories);
+            $manager->flush();
+            $this->addFlash('Info', 'Add product successfully !');
+            return $this->redirectToRoute('product_index');
+        }
+        return $this->render('category/index.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+    #[Route('/edit/{id}', name: 'category_edit')]
+    public function edit(Request $request, $id) 
+    {
+        $categories =$this->categoryRepository->find($id);
         $form = $this->createForm(CategoryType::class, $categories);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,4 +80,5 @@ class CategoryController extends AbstractController
             'categories' => $categories,
         ]);
     }
+
 }
