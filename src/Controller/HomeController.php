@@ -16,8 +16,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
-    #[IsGranted('ROLE_CUSTOMER')]
-    #[Route('/home', name: 'customer_home')]
+    #[Route('/homec', name: 'customer_home')]
     public function cindex() {
         return $this->render('home/cindex.html.twig');
     }
