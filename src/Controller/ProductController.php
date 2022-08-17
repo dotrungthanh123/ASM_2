@@ -114,12 +114,15 @@ class ProductController extends AbstractController
     // #[IsGranted("ROLE_CUSTOMER")]
     #[Route('/search', name: 'product_search')]
     public function searchBook(ProductRepository $productRepository, Request $request){
-      $products = $productRepository->searchBook($request->get('keyword'));
+      $products = $productRepository->findByName($request->get('key'));
       if ($products == null){
           $this->addFlash("Warning", "No product found !");
       }
-      $session = $request->getSession();
-      $session->set('search', true);
+    //   for ($i = 0; $i < count($products); $i++) {
+    //     if ($products[$i]->getName() != $request->get('key')) {
+    //         array_splice($products, $i, 1);
+    //     }
+    //   }
       return $this->render('product/list.html.twig',
       [
           'products' => $products,
