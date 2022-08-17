@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+	<h1 class="text-center mt-4 mb-4">List of Products</h1>
 	<table class="table align-middle mb-0 bg-white">
 		<thead class="bg-light">
 			<tr>
@@ -43,7 +44,6 @@
 					<td class="text-center">$
 						{{ product.price }}</td>
 					<td class="text-center">
-<<<<<<< HEAD
 						<a class="text-decoration-none" href="{{ path('product_detail', {'id' : product.id}) }}">
 							<img src="{{ asset('images/detail.png') }}" width="40" height="40">
 						</a>
@@ -53,7 +53,6 @@
 						<a class="text-decoration-none" href="{{ path('product_delete', {'id' : product.id}) }}" onclick="return confirm('Are you sure to delete this book ?');">
 							<img src="{{ asset('images/delete.png') }}" width="40" height="40">
 						</a>
-=======
 						<button type="button" class="btn btn-link btn-sm btn-rounded">
 							<a href="{{ path('product_detail', {'id' : product.id}) }}">
 								<img src="{{ asset('images/detail.png') }}" width="40" height="40">
@@ -69,7 +68,6 @@
 								<img src="{{ asset('images/delete.png') }}" width="40" height="40">
 							</a>
 						</button>
->>>>>>> 93bc8377964a8e5e5c269f676dbed7a51ab8ec65
 					</td>
 				</tr>
 			{% endfor %}
