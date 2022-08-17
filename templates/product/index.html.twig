@@ -4,11 +4,11 @@
 <table class="table align-middle mb-0 bg-white">
   <thead class="bg-light">
     <tr>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Actions</th>
+      <th class="text-center">Name</th>
+      <th class="text-center">Category</th>
+      <th class="text-center">Quantity</th>
+      <th class="text-center">Price</th>
+      <th class="text-center">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +17,7 @@
           <td>
             <div class="d-flex align-items-center">
               <a href="{{ path('product_detail', {'id' : product.id}) }}">
-              <img
+              <img 
                   src="{{ product.image }}"
                   style="width: 45px; height: 45px"
                   class="rounded-circle"
@@ -30,16 +30,18 @@
             </div>
           </td>
           <td>
-          <p class="fw-normal mb-1">{{ (product.category | first).name }}</p>
+          {# Category #}
+          <p class="fw-normal mb-1 text-center">{{ (product.category | first).name }}</p>
           {% for category in product.category | slice(1) %}
-            <p class="text-muted mb-0">{{category.name}}</p>
+            <p class="text-muted mb-0 text-center">{{category.name}}</p>
           {% endfor %}
+          {# Category #}
           </td>
-          <td>
-            <span class="badge badge-success rounded-pill d-inline">{{ product.quantity }}</span>
+          <td class="text-center">
+            <p class="fw-normal">{{ product.quantity }}</p>
           </td>
-          <td>$ {{ product.price }}</td>
-          <td>
+          <td class="text-center">$ {{ product.price }}</td>
+          <td class="text-center">
             <button type="button" class="btn btn-link btn-sm btn-rounded">
               <a href="{{ path('product_detail', {'id' : product.id}) }}">Detail</a>
             </button>
