@@ -1,10 +1,16 @@
+{% form_theme categoryForm 'bootstrap_5_layout.html.twig' %}
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {{ form_start(categoryForm) }}
+	<div class="container col-md-8 text-center mt-3">
+		<div class="card p-3 bg-light">
+			<h3 class="alert alert-primary">Add category</h3>
+			{{ form_start(categoryForm) }}
 
-    {{ form_widget(categoryForm) }}
-    <input type="submit" value="Add" class="btn btn-outline-danger">
+			{{ form_widget(categoryForm) }}
+			<input type="submit" value="Add" class="btn btn-outline-danger">
 
-    {{ form_end(categoryForm) }}
+			{{ form_end(categoryForm) }}
+		</div>
+	</div>
 {% endblock %}
