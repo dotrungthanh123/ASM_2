@@ -2,6 +2,10 @@
 
 {% block body %}
 	<h1 class="text-center mt-4">List of Product</h1>
+	<button type="button" class="btn btn-sm btn-rounded mt-4 mb-4">
+		Add
+	</button>
+
 	<table class="table align-middle mb-0 bg-white">
 		<thead class="bg-light">
 			<tr>
@@ -9,10 +13,11 @@
 				<th class="text-center">Quantity</th>
 				<th class="text-center">Manufactor</th>
 				<th class="text-center">Category</th>
+				<th class="text-center">Action</th>
 			</tr>
 		</thead>
 		<tbody>
-			{# {% for product in products %} #}
+			{% for product in products %}
 			<tr>
 				<td>
 					<div class="d-flex align-items-center">
@@ -29,8 +34,8 @@
 					<p class="fw-normal mb-1 text-center">Asus</p>
 				</td>
 				<td class="text-center">Laptop</td>
-				{# <td class="text-center">
-					<a class="text-decoration-none" href="#">
+				<td class="text-center">
+					<a class="text-decoration-none" href="{{ path('product_detail', {'id' : product.id}) }}">
 						<img src="{{ asset('images/detail.png') }}" width="40" height="40">
 					</a>
 					<a class="text-decoration-none" href="#">
@@ -39,10 +44,10 @@
 					<a class="text-decoration-none" href="#" onclick="return confirm('Are you sure to delete this book ?');">
 						<img src="{{ asset('images/delete.png') }}" width="40" height="40">
 					</a>
-				</td> #}
+				</td>
 			</tr>
 		</tbody>
-		{# {% endfor %} #}
+		{% endfor %}
 	</table>
 
 {% endblock %}
