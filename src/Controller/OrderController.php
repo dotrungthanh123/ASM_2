@@ -102,7 +102,11 @@ class OrderController extends AbstractController
             $manager->persist($orderDetail);
             $manager->flush();
         }
-        $this->getDoctrine()->getRepository(Product::class)->find($id)->setQuantity($this->getDoctrine()->getRepository(Product::class)->find($id)->getQuantity() - $request->get('quantity'));
+        $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
+        $new = $product->getQuantity() - $request->get('quantity');
+        $product->setQuantity($new);
+        $manager->persist($product);
+        $manager->flush();
         return $this->render('product/list.html.twig',
         [
             'products' => $this->getDoctrine()->getRepository(Product::class)->findAll(),

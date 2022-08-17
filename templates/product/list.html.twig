@@ -12,8 +12,13 @@
 						<img class="card-img rounded-0 img-fluid" src="{{product.image}}">
 					</div>
 					<div class="text-center card-body">
-						<a href="{{ path('product_detail', {'id' : product.id}) }}" class="h3 text-decoration-none">{{product.name}}</a>											
-						<p class="text-center mb-0">{{product.price}}</p>
+						<a href="{{ path('product_detail', {'id' : product.id}) }}" class="h3 text-decoration-none">{{product.name}}</a>	
+						{% if product.quantity == 0 %}
+							<p class="text-center mb-0">Out of Stock</p>
+						{% else %}
+							<p class="text-center mb-0">{{product.quantity}}</p>
+						{% endif %}
+						<p class="text-center mb-0">$ {{product.price}}</p>
 					</div>
 				</div>
 			</div>
