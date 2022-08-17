@@ -31,23 +31,15 @@
 										<span class="act-price">$20</span>
 									</div>
 								</div>
+								<form action="{{ path('order_make', {'id' : product.id}) }}">
 								<div>
-									<button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-										<i class="fas fa-minus"></i>
-									</button>
-
 									<input id="form1" min="0" name="quantity" value="1" type="number" class="form-control form-control-sm"/>
-
-									<button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-										<i class="fas fa-plus"></i>
-									</button>
 								</div>
 								<p class="about">{{ product.description }}</p>
 								<div class="cart mt-4 align-items-center">
-									<a href="{{ path('order_make', {'id' : product.id}) }}">
-										<button class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button>
-									</a>
+									<button type="submit" class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button>
 								</div>
+								</form>
 							</div>
 						</div>
 					</div>
