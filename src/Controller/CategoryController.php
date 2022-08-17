@@ -81,4 +81,17 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    #[Route('/detail/{id}', name: 'category_detail')]
+    public function categoryDetail ($id) {
+      $category = $this->categoryRepository->find($id);
+      if ($category == null) {
+          $this->addFlash('Warning', 'Invalid category id !');
+          return $this->redirectToRoute('category_index');
+      }
+
+      return $this->render('category/detail.html.twig',
+          [
+              'category' => $category
+          ]);
+    }
 }
