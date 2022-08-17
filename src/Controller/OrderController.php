@@ -49,7 +49,10 @@ class OrderController extends AbstractController
             if ($this->completedRepository->find($this->orders[$i]->getId()) == null && $this->orders[$i]->getUser()->getUsername() == $this->getUser()->getUsername()) {
                 $con = true;
                 $orderDetail = new OrderDetail;
-                // $orderDetail->setProduct();
+                $orderDetail->setProduct($this->getDoctrine()->getRepository(Product::class)->find($id));
+                $orderDetail->setOrderId($this->orderRepository->find($i));
+                
+                break;
             }
         }
         if (!$con) {
