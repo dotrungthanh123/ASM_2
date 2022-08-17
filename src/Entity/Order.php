@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
-#[ORM\Table(name: '`order`')]
+#[ORM\Table(name: 'order')]
 class Order
 {
     #[ORM\Id]
@@ -19,7 +20,7 @@ class Order
     #[ORM\Column(type: 'datetime')]
     private $datetime;
 
-    #[ORM\ManyToOne(targetEntity: user::class, inversedBy: 'orders')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
@@ -48,12 +49,12 @@ class Order
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
@@ -87,6 +88,13 @@ class Order
             }
         }
 
+        return $this;
+    }
+
+    public function setCreatedTs(DateTimeInterface $created_ts): self
+    {
+        $this->datetime = $created_ts;
+    
         return $this;
     }
 }

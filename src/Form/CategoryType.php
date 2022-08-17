@@ -14,14 +14,14 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,
-            [
-                'label' => 'Author name',
-                'attr' => [
-                    'minlength' => 3,
-                    'maxlength' => 30
+                [
+                    'label' => 'Author name',
+                    'attr' => [
+                        'minlength' => 3,
+                        'maxlength' => 30
+                    ]
                 ]
-            ])
-        ;
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
