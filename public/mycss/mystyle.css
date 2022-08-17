@@ -62,7 +62,7 @@ body {
 }
 
 
-/* Products CSS */
+/* Products CSS
 .products {
     padding-top: 8.75rem;
 }
@@ -300,8 +300,8 @@ label.radio input:checked+span {
   }
   .carousel-inner img {
     -webkit-filter: grayscale(90%);
-    filter: grayscale(90%); /* make all photos black and white */ 
-    width: 100%; /* Set width to 100% */
+    filter: grayscale(90%); 
+    width: 100%; 
     margin: auto;
   }
   .carousel-caption h3 {
@@ -309,7 +309,7 @@ label.radio input:checked+span {
   }
   @media (max-width: 600px) {
     .carousel-caption {
-      display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+      display: none; 
     }
   }
   .bg-1 {
@@ -396,23 +396,6 @@ label.radio input:checked+span {
   }
   .dropdown-menu li a:hover {
     background-color: red !important;
-  }
-  footer {
-    background-color: #2d2d30;
-    color: #f5f5f5;
-    padding: 32px;
-  }
-  footer a {
-    color: #f5f5f5;
-  }
-  footer a:hover {
-    color: #777;
-    text-decoration: none;
-  }  
-  .form-control {
-    border-radius: 0;
-  }
-  textarea {
-    resize: none;
-  }
+  } */
+
   

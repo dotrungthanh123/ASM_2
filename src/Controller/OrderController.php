@@ -30,9 +30,11 @@ class OrderController extends AbstractController
         ]);
     }
 
-    #[Route('/detail', name: 'order_detail')]
-    public function detailOrder() {
-
+    #[Route('/detail/{id}', name: 'order_detail')]
+    public function detailOrder($id) {
+        return $this->render('order/index.html.twig', [
+            'orders' => $this->orders,
+        ]);
     }
 
     #[Route('/make/{id}', name: 'order_make')]
@@ -42,11 +44,13 @@ class OrderController extends AbstractController
             if ($this->completedRepository->find($this->orders[$i]->getId()) == null && $this->orders[$i]->getUser()->getUsername() == $this->getUser()->getUsername()) {
                 $con = true;
                 $orderDetail = new OrderDetail;
-                $orderDetail->setProduct()
+                $orderDetail->setProduct();
             }
         }
         if (!$con) {
 
         }
+
+        
     }
 }

@@ -2,7 +2,6 @@
 
 {% block body %}
 <table class="table align-middle mb-0 bg-white">
-<<<<<<< HEAD
 	<thead class="bg-light">
 		<tr>
 			<th>Name</th>
@@ -50,7 +49,6 @@
 		{% endfor %}
 </tr>
 	</tbody>
-=======
   <thead class="bg-light">
     <tr>
       <th>Name</th>
@@ -85,7 +83,7 @@
           {% endfor %}
           </td>
           <td>
-            <span class="badge badge-success rounded-pill d-inline">{{ product.quantity }}</span>
+            <span class="fw-normal">{{ product.quantity }}</span>
           </td>
           <td>$ {{ product.price }}</td>
           <td>
@@ -102,6 +100,5 @@
     </tr>
         {% endfor %}
   </tbody>
->>>>>>> a25c73585c986e4e94d9614b35409dc55df41459
 </table>
 {% endblock %}
