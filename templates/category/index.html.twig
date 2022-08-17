@@ -1,31 +1,49 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<div class="container col-md-8 text-center mt-3">
-   <div class="row">
-      <div class="col-6">
-         <table class="table table-bordered">
-            <tr>
-               <th colspan="2" class="bg-light">
-                  <h2 class="text-danger"> Category Information </h2>
-               </th>
-            </tr>
-            <tr class="h4">
-               <th>Category</th>     
-            </tr>
-            <tr class="h4">
-               <th class="col-md-4">Product</th>
-               <td class="col-md-8">
-                  {% for cat in category %}
-                     <a href="{{ path('category_detail', {'id' : cat.id })}}">
-                        {{ cat.name }} 
-                     </a>
-                     <br>
-                  {% endfor %}
-               </td>
-            </tr>
-         </table>
-      </div>
-   </div>
-</div>
+	<h1 class="text-center mt-4">List of cat</h1>
+	<table class="table align-middle mb-0 bg-white">
+		<thead class="bg-light">
+			<tr>
+				<th class="text-center">Category</th>
+				<th class="text-center">Image</th>
+				<th class="text-center">Description</th>
+				<th class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for cat in category %}
+			<tr>
+				<td>
+					<div class="d-flex align-items-center">
+						<img src="" style="width: 45px; height: 45px" class="rounded-circle"/>
+						<div class="ms-3">
+							<p class="fw-bold mb-1">{{ cat.name }}</p>
+						</div>
+					</div>
+				</td>
+				<td class="text-center">{{ cat.image }}</td>
+				<td class="text-center">{{ cat.description }}</td>
+						<td class="text-center">
+							<button type="button" class="btn btn-link btn-sm btn-rounded">
+								<a href="{{ path('category_detail', {'id' : cat.id}) }}">
+									<img src="{{ asset('images/detail.png') }}" width="40" height="40">
+								</a>
+							</button>
+							<button type="button" class="btn btn-link btn-sm btn-rounded">
+								<a href="{{ path('category_edit', {'id' : cat.id}) }}">
+									<img src="{{ asset('images/edit.png') }}" width="40" height="40">
+								</a>
+							</button>
+							<button type="button" class="btn btn-link btn-sm btn-rounded">
+								<a href="{{ path('category_delete', {'id' : cat.id}) }}">
+									<img src="{{ asset('images/delete.png') }}" width="40" height="40">
+								</a>
+							</button>
+						</td>            
+			</tr>
+		</tbody>
+		{% endfor %}
+	</table>
+
 {% endblock %}
