@@ -13,13 +13,6 @@ body {
     background: white;
     border-radius: 30px;
 }
-img{
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    height: 300px;
-    width: 500px;
-}
-
 .btn1 {
     border: none;
     outline: none;
@@ -31,13 +24,7 @@ img{
     font-weight: bold;
 
 }
-#footer {
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:60px;   /* Height of the footer */
-  background:#6cf;
-}
+
 /* index */
 /* * {
     margin: 0;

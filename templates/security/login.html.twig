@@ -10,19 +10,24 @@
 		<div class="container">
 			<div class="row g-0">
 				<div class="col-lg-6">
-					<img  src="{{asset('images/laptop.png')}}" class="img-fluid" alt="" >
+					<img src="{{asset('images/laptop.png')}}" class="img-fluid" style="border-top-left-radius: 30px;
+						    border-bottom-left-radius: 30px;
+						    height: 300px;
+						    width: 500px;" alt="">
 				</div>
 				<div class="col-lg-6 px-5 pt-5">
-                <h1 class="font-weight-bold py-3">Logo</h1>
-                <h4>Please sign into your account</h4>
+					<h1 class="font-weight-bold py-3">Logo</h1>
+					<h4>Please sign into your account</h4>
 					<form method="post">
 						{% if error %}
-        					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+							<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 						{% endif %}
 
 						{% if app.user %}
 							<div class="mb-3">
-								You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+								You are logged in as
+								{{ app.user.username }},
+								<a href="{{ path('logout') }}">Logout</a>
 							</div>
 						{% endif %}
 
@@ -33,20 +38,18 @@
 						</div>
 						<div class="form-row">
 							<div class="col-lg-8">
-								<input type="password" .
-								name="password" class="form-control mb-3" placeholder="Password" required>
+								<input type="password" . name="password" class="form-control mb-3" placeholder="Password" required>
 							</div>
 						</div>
-                        <div class="form-row">
+						<div class="form-row">
 							<div class="col-lg-8">
 								<button type="submit" class="btn1 mb-3">Login</button>
 							</div>
 						</div>
-						<input type="hidden" name="_csrf_token"
-							value="{{ csrf_token('authenticate') }}"
-						>
-                        <a href="">Forgot password?</a>
-                        <p>Don't have an account?<a href="" href="{{ path('register') }}">Register</a></p>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						<a href="">Forgot password?</a>
+						<p>Don't have an account?<a href="" href="{{ path('register') }}">Register</a>
+						</p>
 					</form>
 				</div>
 			</div>
