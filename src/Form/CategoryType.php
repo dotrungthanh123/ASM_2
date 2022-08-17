@@ -15,10 +15,21 @@ class CategoryType extends AbstractType
         $builder
             ->add('name', TextType::class,
             [
-                'label' => 'Author name',
+                'label' => 'Category',
                 'attr' => [
                     'minlength' => 3,
                     'maxlength' => 30
+                ]
+            ])
+            ->add('image', TextType::class,
+            [
+                'label'=>'Link of image',
+            ])
+            ->add('description', TextType::class,
+            [
+                'label'=>'Description',
+                'attr' => [
+                      'maxlength' => 300
                 ]
             ])
         ;
