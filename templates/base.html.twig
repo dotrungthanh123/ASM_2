@@ -90,6 +90,14 @@
 			</nav>
 		{% endblock %}
 		{% block body %}{% endblock %}
+		<div class="container col-md-6 text-center mt-3">
+				{% for flash in app.session.flashBag.get('Info') %}
+					<p class="alert alert-info">{{ flash }}</p>
+				{% endfor %}
+				{% for flash in app.session.flashBag.get('Warning') %}
+					<p class="alert alert-danger">{{ flash }}</p>
+				{% endfor %}
+			</div>
 		{% block footer %}
 			<footer class="text-center text-lg-start bg-white text-muted ">
 

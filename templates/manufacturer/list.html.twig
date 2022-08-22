@@ -1,31 +1,29 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	<h1 class="text-center mt-4">List of Manufacturer</h1>
+	<h1 class="text-center mt-4 mb-4">List of Manufactors</h1>
 	<table class="table align-middle mb-0 bg-white">
+		<table class="table align-middle mb-0 bg-white">
 		<thead class="bg-light">
-			<tr>
-				<th class="text-center">Manufacturer</th>
-				<th class="text-center">Address</th>
-				<th class="text-center">Contact</th>
+			<tr class="text-center">
+				<th>Name</th>
+				<th>Address</th>
+				<th>Contact</th>
 			</tr>
+			</tr>			
 		</thead>
 		<tbody>
-			{% for manufacturer in manufacturers %}
+			{# {% for product in products %} #}
 			<tr>
-				<td>
-					<div class="d-flex align-items-center">
-						<img src="" style="width: 45px; height: 45px" class="rounded-circle"/>
-						<div class="ms-3">
-							<p class="fw-bold mb-1">Asus</p>
-						</div>
-					</div>
-				</td>
-				<td class="text-center">{{ manufacturer.address }}</td>
-				<td class="text-center">{{ manufacturer.contact }}</td>
+				{% for manufacturer in manufacturers %}
+					<tr class="text-center">
+						<td><a href="{{ path('manufacturer_detail', {'id' : manufacturer.id}) }}">{{manufacturer.name}}</a></td>
+						<td>{{manufacturer.address}}</td>
+						<td>{{manufacturer.contact}}</td>
+					</tr>
+				{% endfor %}
 			</tr>
 		</tbody>
-		{% endfor %}
+		{# {% endfor %} #}
 	</table>
-
 {% endblock %}
