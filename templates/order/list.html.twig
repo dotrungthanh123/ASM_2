@@ -18,53 +18,53 @@
 									</h5>
 									<hr>
 
-									<div class="d-flex justify-content-between align-items-center mb-4">
-										<div>
-											<p class="mb-1">Shopping cart</p>
-											{% if order == null %}
-												<p class="mb-0">You have 0 order</p>
-											{% else %}
-												<p class="mb-0">You have
-													{{ order.orderDetails | length }}
-													orders</p>
-											{% endif %}
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<div>
+			<p class="mb-1">Shopping cart</p>
+			{% if order == null %}
+				<p class="mb-0">You have 0 order</p>
+			{% else %}
+				<p class="mb-0">You have
+					{{ order.orderDetails | length }}
+					orders</p>
+			{% endif %}
 
-										</div>
-									</div>
-									{% if order != null %}
-									
-									{% for order in order.orderDetails %}
-										<div class="card mb-3 mb-lg-0">
-											<div class="card-body">
-												<div class="d-flex justify-content-between">
-													<div class="d-flex flex-row align-items-center">
-														<div>
-															<img src="{{order.product.image}}" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-														</div>
-														<div class="ms-3">
-															<h5>{{ order.product.name }}</h5>
-															<p class="small mb-0">{{ order.product.manufacturer.name }}</p>
-														</div>
-													</div>
-													<div class="d-flex flex-row align-items-center">
-														<div class="col-md-3 col-lg-3 col-xl-2 d-flex" style="width: 100px;">
+		</div>
+	</div>
+	{% if order != null %}
 
-															<p class="h5 mb-0">
-																{{ order.quantity }}
-																{% set sum = sum + order.quantity * order.product.price %}
-															</p>
+	{% for order in order.orderDetails %}
+		<div class="card mb-3 mb-lg-0">
+			<div class="card-body">
+				<div class="d-flex justify-content-between">
+					<div class="d-flex flex-row align-items-center">
+						<div>
+							<img src="{{order.product.image}}" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+						</div>
+						<div class="ms-3">
+							<h5>{{ order.product.name }}</h5>
+							<p class="small mb-0">{{ order.product.manufacturer.name }}</p>
+						</div>
+					</div>
+					<div class="d-flex flex-row align-items-center">
+						<div class="col-md-3 col-lg-3 col-xl-2 d-flex" style="width: 100px;">
 
-														</div>
-														<div style="width: 80px;">
-															<h5 class="mb-0">$
-																{{ order.product.price }}</h5>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									{% endfor %}
-									{% endif %}
+							<p class="h5 mb-0">
+								{{ order.quantity }}
+								{% set sum = sum + order.quantity * order.product.price %}
+							</p>
+
+						</div>
+						<div style="width: 80px;">
+							<h5 class="mb-0">$
+								{{ order.product.price }}</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	{% endif %}
 
 								</div>
 								<div class="col-lg-5">
@@ -75,20 +75,6 @@
 												<h5 class="mb-0">Card details</h5>
 												<img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
 											</div>
-
-											<p class="small mb-2">Card type</p>
-											<a href="#!" type="submit" class="text-white">
-												<i class="fab fa-cc-mastercard fa-2x me-2"></i>
-											</a>
-											<a href="#!" type="submit" class="text-white">
-												<i class="fab fa-cc-visa fa-2x me-2"></i>
-											</a>
-											<a href="#!" type="submit" class="text-white">
-												<i class="fab fa-cc-amex fa-2x me-2"></i>
-											</a>
-											<a href="#!" type="submit" class="text-white">
-												<i class="fab fa-cc-paypal fa-2x"></i>
-											</a>
 
 											<form class="mt-4">
 												<div class="form-outline form-white mb-4">
@@ -120,10 +106,10 @@
 
 											<hr class="my-4">
 
-											<div class="d-flex justify-content-between mb-4">
-												<p class="mb-2">Total</p>
-												<p class="mb-2">$ {{ sum }}</p>
-											</div>
+<div class="d-flex justify-content-between mb-4">
+	<p class="mb-2">Total</p>
+	<p class="mb-2">$ {{ sum }}</p>
+</div>
 
 											<button type="button" class="btn btn-info btn-block btn-lg">
 												<div class="d-flex justify-content-between">
