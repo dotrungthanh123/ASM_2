@@ -21,8 +21,8 @@ class ProductController extends AbstractController
 
     #[IsGranted("ROLE_ADMIN")]
     #[Route('/index', name: 'product_index')]
-    public function productIndex(){
-        $products = $this->productRepository->findAll();
+    public function productIndex(ProductRepository $productRepository){
+        $products = $productRepository->sortProductByIdDesc();
         return $this->render('product/index.html.twig',
         [
             'products' => $products
@@ -31,7 +31,7 @@ class ProductController extends AbstractController
 
     #[Route('/list', name: 'product_list')]
     public function productList(ProductRepository $productRepository) {
-        $products = $productRepository->findAll();
+        $products = $this->productRepository->findAll();
         return $this->render('product/list.html.twig', 
         [
             'products' => $products
@@ -111,19 +111,14 @@ class ProductController extends AbstractController
     }
 
     // ----------------------------------------------------------------------
-    // #[IsGranted("ROLE_CUSTOMER")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/search', name: 'product_search')]
-    public function searchBook(ProductRepository $productRepository, Request $request){
+    public function searchProduct(ProductRepository $productRepository, Request $request){
       $products = $productRepository->findByName($request->get('key'));
       if ($products == null){
           $this->addFlash("Warning", "No product found !");
       }
-    //   for ($i = 0; $i < count($products); $i++) {
-    //     if ($products[$i]->getName() != $request->get('key')) {
-    //         array_splice($products, $i, 1);
-    //     }
-    //   }
-      return $this->render('product/list.html.twig',
+      return $this->render('product/index.html.twig',
       [
           'products' => $products,
       ]);

@@ -61,6 +61,14 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
 
+    public function sortProductByIdDesc()
+    {
+        return $this->createQueryBuilder('product')
+        ->orderBy('product.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+    ;
+    }
     /*
     public function findOneBySomeField($value): ?Product
     {
