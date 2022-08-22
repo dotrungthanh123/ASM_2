@@ -1,10 +1,16 @@
+{% form_theme manufacturerForm 'bootstrap_5_layout.html.twig' %}
 {% extends "base.html.twig" %}
 
 {% block body %}
+	<div class="container col-md-8 text-center mt-3">
+		<div class="card p-3 bg-light">
+			<h3 class="alert alert-primary">Add Manufacturer</h3>
     {{ form_start(manufacturerForm) }}
 
     {{ form_widget(manufacturerForm) }}
     <input type="submit" value="Add" class="btn btn-outline-danger">
 
     {{ form_end(manufacturerForm) }}
+	</div>
+	</div>
 {% endblock %}

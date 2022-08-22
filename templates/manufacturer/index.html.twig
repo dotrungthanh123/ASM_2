@@ -18,7 +18,7 @@
 			<tr>
 				{% for manufacturer in manufacturers %}
 					<tr class="text-center">
-						<td>{{manufacturer.name}}</td>
+						<td><a href="{{ path('manufacturer_detail', {'id' : manufacturer.id}) }}">{{manufacturer.name}}</a></td>
 						<td>{{manufacturer.address}}</td>
 						<td>{{manufacturer.contact}}</td>
 						<td>

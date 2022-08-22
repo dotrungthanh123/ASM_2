@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\OrderDetail;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -37,6 +38,7 @@ class ProductController extends AbstractController
             'products' => $products
         ]);
     }
+
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/delete/{id}', name: 'product_delete')]
     public function deleteProduct($id) {
@@ -45,6 +47,12 @@ class ProductController extends AbstractController
             $this->addFlash('Warning', 'Product not existed !');
         } else {
             $manager = $this->getDoctrine()->getManager();
+            $orderDetail = $this->getDoctrine()->getRepository(OrderDetail::class)->findAll();
+            for ($i = 0; $i < count($orderDetail); $i++) {
+                if ($orderDetail[$i]->getProduct()->getId() == $id) {
+                    $manager->remove($orderDetail[$i]);
+                }
+            }
             $manager->remove($product);
             $manager->flush();
             $this->addFlash('Info', 'Delete product successfully !');
