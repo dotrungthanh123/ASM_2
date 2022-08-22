@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{% set count = 1 %}
+{% set summ = 0 %}
+{% set sumq = 0 %}
+{% block body %}
+    {% for order in orders %}
+    <h1>Order {{ count }}</h1>
+        {% for detail in order.orderDetails %}
+            Product Name: {{ detail.product.name }} <br>
+            Quantity: {{ detail.quantity }} <br>
+            {% set sumq = sumq + detail.quantity %}
+            Total: {{ detail.product.price * detail.quantity }} <br><br>
+            {% set summ = summ + detail.product.price * detail.quantity %}
+        {% endfor %}
+        <br><br>
+        {% set count = count + 1 %}
+    {% endfor %}
+Total quantity: {{ sumq }} <br><br>
+Total money: {{ summ }}
+{% endblock %}

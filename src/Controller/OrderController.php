@@ -27,11 +27,44 @@ class OrderController extends AbstractController
     public function completeOrder($id) {
         $order = $this->orderRepository->find($id);
         $order->setComplete(true);
+        foreach ($order->getOrderDetails() as $od) {
+            $product = $this->getDoctrine()->getRepository(Product::class)->find($od->getProduct()->getId());
+            $new = $product->getQuantity() - $od->getQuantity();
+            $product->setQuantity($new);
+            $this->getDoctrine()->getManager()->persist($product);
+        }
         $this->getDoctrine()->getManager()->persist($order);
         $this->getDoctrine()->getManager()->flush();
+
         return $this->render('product/list.html.twig', 
         [
             'products' => $this->getDoctrine()->getRepository(Product::class)->findAll(),
+        ]);
+    }
+
+    #[Route('/history', name: 'order_history')]
+    public function orderHistory() {
+        $orders = $this->getDoctrine()->getRepository(Order::class)->findAll();
+        $results = array();
+        for ($i = 0; $i < count($orders); $i++) {
+            if ($orders[$i]->getUser() != $this->getUser()) {
+                array_splice($orders, $i, 1);
+            }
+        }
+        for ($i = 0; $i < count($orders); $i++) {
+            $fix = $orders[$i]->getOrderDetails();
+            for ($j = 0; $j < count($fix); $j++) {
+                $sub = $fix[$j]->getProduct()->getId();
+                if (in_array($sub, $results) == true) {
+                    $results[$sub] += $fix[$j]->getQuantity();
+                } else {
+                    $results[$sub] = $fix[$j]->getQuantity();
+                }
+            }
+        }
+        return $this->render('order/history.html.twig', 
+        [
+            'orders' => $orders,
         ]);
     }
 
@@ -102,11 +135,6 @@ class OrderController extends AbstractController
             $manager->persist($orderDetail);
             $manager->flush();
         }
-        $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
-        $new = $product->getQuantity() - $request->get('quantity');
-        $product->setQuantity($new);
-        $manager->persist($product);
-        $manager->flush();
         return $this->render('product/list.html.twig',
         [
             'products' => $this->getDoctrine()->getRepository(Product::class)->findAll(),

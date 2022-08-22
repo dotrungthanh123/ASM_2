@@ -1,2 +1,19 @@
-# ASM_2
-https://drive.google.com/drive/folders/15sIxxa8dW2MTH94OSgHfLtd_bV-9-r6K
+```mermaid
+graph TD;
+    ASM_2-->migrations
+    ASM_2-->public
+    ASM_2-->README.md
+    ASM_2-->templates
+    public-->images
+    public-->mycss
+    ASM_2-->src
+    src-->Controller
+    src-->DataFixtures
+    src-->Entity
+    src-->Form
+    src-->Kernel.php
+    src-->Repository
+    src-->Security
+    Controller-->ProductController
+    
+    
