@@ -1,6 +1,8 @@
 ```mermaid
 graph TD;
     ASM_2-->migrations
+    ASM_2-->.env
+    ASM_2-->config
     ASM_2-->public
     ASM_2-->README.md
     ASM_2-->templates
@@ -14,6 +16,5 @@ graph TD;
     src-->Kernel.php
     src-->Repository
     src-->Security
-    Controller-->ProductController
     
     
