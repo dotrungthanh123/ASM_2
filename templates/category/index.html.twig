@@ -1,12 +1,11 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	<h1 class="text-center mt-4">List of cat</h1>
+	<h1 class="text-center mt-4">List of category</h1>
 	<table class="table align-middle mb-0 bg-white">
 		<thead class="bg-light">
 			<tr>
 				<th class="text-center">Category</th>
-				<th class="text-center">Image</th>
 				<th class="text-center">Description</th>
 				<th class="text-center">Action</th>
 			</tr>
@@ -16,13 +15,12 @@
 			<tr>
 				<td>
 					<div class="d-flex align-items-center">
-						<img src="" style="width: 45px; height: 45px" class="rounded-circle"/>
+						<img src="{{ cat.image }}" style="width: 45px; height: 45px" class="rounded-circle"/>
 						<div class="ms-3">
 							<p class="fw-bold mb-1">{{ cat.name }}</p>
 						</div>
 					</div>
 				</td>
-				<td class="text-center">{{ cat.image }}</td>
 				<td class="text-center">{{ cat.description }}</td>
 						<td class="text-center">
 							<button type="button" class="btn btn-link btn-sm btn-rounded">

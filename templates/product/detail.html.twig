@@ -24,22 +24,22 @@
 									</div>
 									<i class="fa fa-shopping-cart text-muted"></i>
 								</div>
-								<div class="mt-4 mb-3">
-									<span class="text-uppercase text-muted brand">{{ product.manufacturer.name }}</span>
-									<h5 class="text-uppercase">{{ product.name }}</h5>
-									<div class="price d-flex flex-row align-items-center">
-										<span class="act-price">$20</span>
-									</div>
-								</div>
-								<form action="{{ path('order_make', {'id' : product.id}) }}">
-								<div>
-									<input id="form1" min="0" name="quantity" value="1" type="number" class="form-control form-control-sm"/>
-								</div>
-								<p class="about">{{ product.description }}</p>
-								<div class="cart mt-4 align-items-center">
-									<button type="submit" class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button>
-								</div>
-								</form>
+<div class="mt-4 mb-3">
+	<span class="text-uppercase text-muted brand">Manufacturer: {{ product.manufacturer.name }}</span>
+	<h5 class="text-uppercase">Name: {{ product.name }}</h5>
+	<div class="price d-flex flex-row align-items-center">
+		<span class="act-price">$ {{ product.price }}</span>
+	</div>
+</div>
+<form action="{{ path('order_make', {'id' : product.id}) }}">
+<div>
+	<input id="form1" min="0" name="quantity" value="1" type="number" class="form-control form-control-sm"/>
+</div>
+<p class="about">Description: {{ product.description }}</p>
+<div class="cart mt-4 align-items-center">
+	<button type="submit" class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button>
+</div>
+</form>
 							</div>
 						</div>
 					</div>
